@@ -91,23 +91,73 @@
 //     });
 // });
 
-import { test, expect } from '@playwright/test';
-test.describe.configure({mode: 'parallel'});
+// import { test, expect } from '@playwright/test';
+// test.describe.configure({mode: 'parallel'});
 
-test('Test 1 - Google.com has correct title', async ({ page }) => {
-    await page.goto('https://google.com');
-    await expect(page).toHaveTitle('Google');
-});
-test('Test 2 - Playwright.dev has correct title', async ({ page }) => {
-    await page.goto('https://playwright.dev');
-    await expect(page).toHaveTitle(/Playwright/);
+// test('Test 1 - Google.com has correct title', async ({ page }) => {
+//     await page.goto('https://google.com');
+//     await expect(page).toHaveTitle('Google');
+// });
+// test('Test 2 - Playwright.dev has correct title', async ({ page }) => {
+//     await page.goto('https://playwright.dev');
+//     await expect(page).toHaveTitle(/Playwright/);
 
-    page.pause();
-});
-test('Test 3 - GitHub has correct title', async ({ page }) => {
-    await page.goto('https://github.com');
-    await expect(page).toHaveTitle(/GitHub/);
+//     page.pause();
+// });
+// test('Test 3 - GitHub has correct title', async ({ page }) => {
+//     await page.goto('https://github.com');
+//     await expect(page).toHaveTitle(/GitHub/);
 
-    page.pause();
-});
+//     page.pause();
+// });
+
+
+// import { test, expect } from '@playwright/test';
+// test('should log in successfully',  async ({ page }) => {
+//     await page.goto('https://www.saucedemo.com/');
+
+//   // --- PROBLEM LINE ---
+//   // We're assuming the username field has an ID 'username-input'
+//   // but it's wrong!
+//     await page.locator('[data-test="username"]').fill('standard_user');
+//     await page.locator('[data-test="password"]').fill('secret_sauce');
+//     await page.getByRole('button', { name: 'Login' }).click();
+//     await expect(page).toHaveURL(/inventory.html/);
+//     await expect(page).toHaveTitle(/Swag Labs/);
+// });
+
+// import { test, expect } from '@playwright/test';
+// test('my custom screenshot test', async ({ page }) => {
+//     await page.goto('https://playwright.dev/');
+//     try {
+//         //assert something that might fail
+//         await expect(page.locator('#undefined!')).toBeVisible();
+//     } catch {
+//         // if the assertion fails, take a custom screenshot
+//         await page.screenshot({ path: 'shot.png', fullPage: true });
+//         console.log('Test failed, custom screenshot taken!' );
+//         // re-throw the error to ensure the test is marked as failed
+//         throw Error;
+//     }
+// });
+
+import { chromium } from '@playwright/test';
+(async () => {
+    const browser = await chromium.launch();
+    const context = await browser.newContext({
+        recordVideo: {
+            dir: 'test-results/my-videos/',
+            size: { width: 1280, height: 720 },
+        },
+    });
+    const page = await context.newPage();
+    // automation steps
+    await page.goto('https://playwright.dev/');
+    await page.getByTestId('set Started');
+    // . . .
+    /// importtant: videos are save upon browser context
+    // make sure to close the context browser.
+    await context.close();
+    await context.browser();
+})();
 
