@@ -21,7 +21,6 @@ export default defineConfig({
           //mode: "on",
           // optional: specify video resolution
           size: { width: 1280, height: 720 },
-          
         },
         // you also need to specify a directory for the videos
         contextOptions: {
@@ -36,6 +35,13 @@ export default defineConfig({
     },
   ],
   // other configs
+  expect: {
+    toHaveScreenshot: {
+      threshold: 2.0, // 20% pixel ratio difference
+      maxDiffPixels: 100, // max pixels allowed to differ
+    },
+  },
+   // other options ...
 });
 
 //Node.js/typescript config for enabling devtools
