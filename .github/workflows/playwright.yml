@@ -1,8 +1,9 @@
-name: Deploy Playwright Report to GitGub Pages
+name: Deploy Playwright Report to GitHub Pages
 on:
   push:
     branches:
-    - main, master
+    - main
+    - master
 permissions:
   contents: write
 
@@ -19,11 +20,11 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: plawywright-report
+        name: playwright-report
         path: playwright-report
         retention-days: 30
 
-    - name: Deploy to GitGub Pages
+    - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -32,7 +33,7 @@ jobs:
     - name: Add link to report in summary
       run: |
         echo "## Test Report" >> $GITHUB_STEP_SUMMARY
-        echo "[View Test Report](https://${{ github.actor }}.github.io/test/playwright-report/)" >> $GITHUB_STEP_SUMMARY
+        echo "[View Test Report](https://${{ github.repository_owner }}.github.io/playwright-fundamentals/playwright-report/)" >> $GITHUB_STEP_SUMMARY
   # - name: Add link to report in summary
   #   run: |
   #     echo "## Test Report" >> $GITHUB_STEP_SUMMARY
