@@ -6,6 +6,8 @@ FROM mcr.microsoft.com/playwright:v1.60.0-noble
 # Set the working directory inside the container
 WORKDIR /app
 
+ENV CI=true
+
 # copy package.json and package-lock.json to install dependencies
 # This leverages Docker's caching, so dependencies are only reinstated if these files change
 COPY package.json ./

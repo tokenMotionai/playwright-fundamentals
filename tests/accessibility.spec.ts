@@ -63,7 +63,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 test('should not have accessibility violations on the page', async ({ page }) => {
-    await page.goto('https://playwright.dev/');
+    await page.goto('https://example.com');
     const results = await new AxeBuilder({ page })
         .withRules(['color-contrast', 'image-alt'])
         .analyze();
