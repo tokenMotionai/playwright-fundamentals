@@ -141,23 +141,31 @@
 //     }
 // });
 
-import { chromium } from '@playwright/test';
-(async () => {
-    const browser = await chromium.launch();
-    const context = await browser.newContext({
-        recordVideo: {
-            dir: 'test-results/my-videos/',
-            size: { width: 1280, height: 720 },
-        },
-    });
-    const page = await context.newPage();
-    // automation steps
-    await page.goto('https://playwright.dev/');
-    await page.getByTestId('set Started');
-    // . . .
-    /// importtant: videos are save upon browser context
-    // make sure to close the context browser.
-    await context.close();
-    await context.browser();
-})();
+// import { chromium } from '@playwright/test';
+// (async () => {
+//     const browser = await chromium.launch();
+//     const context = await browser.newContext({
+//         recordVideo: {
+//             dir: 'test-results/my-videos/',
+//             size: { width: 1280, height: 720 },
+//         },
+//     });
+//     const page = await context.newPage();
+//     // automation steps
+//     await page.goto('https://playwright.dev/');
+//     await page.getByTestId('set Started');
+//     // . . .
+//     /// importtant: videos are saved upon browser context
+//     // make sure to close the context browser.
+//     await context.close();
+//     await context.browser();
+// })();
 
+import { test} from '@playwright/test';
+test('my test with video', async({ page }) => {
+    await page.goto('https://playwright.dev/');
+    // .. test steps
+    // get the path to the video file this page
+    const videoPath = await page.video()?.path();
+    console.log(`Video saved at: ${videoPath}`);
+})

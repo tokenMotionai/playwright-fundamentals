@@ -17,9 +17,11 @@ export default defineConfig({
         // video: 'on-first-retry', // Example: record video on first retry
         // trace: 'on-first-retry', // Example: record trace on first retry
         video: {
-          mode: "on",
+          mode: "on-first-retry",
+          //mode: "on",
           // optional: specify video resolution
           size: { width: 1280, height: 720 },
+          
         },
         // you also need to specify a directory for the videos
         contextOptions: {
