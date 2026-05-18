@@ -63,13 +63,12 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 test('should not have accessibility violations on the page', async ({ page }) => {
-    await page.goto('https://www.google.com');
-    //only check for these 2 accessibility rules
+    await page.goto('https://playwright.dev/');
     const results = await new AxeBuilder({ page })
         .withRules(['color-contrast', 'image-alt'])
         .analyze();
-    // you can also log the violations for more details
-    // debugging if needed
-    // Assert that there are no violations
+    if (results.violations.length > 0) {
+        console.log('Accessibility violations:', JSON.stringify(results.violations, null, 2));
+    }
     expect(results.violations).toEqual([]);
 });
