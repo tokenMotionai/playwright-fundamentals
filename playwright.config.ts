@@ -7,7 +7,7 @@ export default defineConfig({
     {
       name: "chromium",
       use: {
-        headless: false,
+        headless: !!process.env.CI,
         ...devices["Desktop Chrome"],
         screenshot: "only-on-failure",
         trace: "on-first-retry",

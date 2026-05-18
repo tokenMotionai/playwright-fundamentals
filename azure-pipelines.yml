@@ -26,6 +26,7 @@ stages:
 
     - script: |
         docker run --rm \
+          -e CI=true \
           -v "$(Build.SourcesDirectory)/playwright-report:/app/playwright-report" \
           playwright-tests
       displayName: 'Run Playwright Tests in Docker'
